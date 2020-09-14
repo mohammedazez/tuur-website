@@ -15,11 +15,34 @@
 
     <!-- link css dari index -->
     <link rel="stylesheet" href="../../style/style.css" />
+
+        <!-- fonts -->
+        <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap"
+        rel="stylesheet"
+      />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+        rel="stylesheet"
+      />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+        rel="stylesheet"
+      />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Nunito&display=swap"
+        rel="stylesheet"
+      />
+      <!-- favicon -->
+      <link rel="icon" type="image/png" href="./assets/images/tuur-icon.png" />
+      <!-- custom css -->
+      <link rel="stylesheet" href="./style/style.css" />
+  
   </head>
   <body>
     <!-- navbar -->
     <header>
-      <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light montserrat">
         <a class="navbar-brand" href="../../index.html">
           <img
             src="../../assets/images/tuur.png"
@@ -41,7 +64,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" href="../../index.html"
                 >Home <span class="sr-only">(current)</span></a
               >
@@ -51,11 +74,14 @@
                 >Destination</a
               >
             </li>
+            <!-- dynamic order -->
             <li class="nav-item">
-              <a class="nav-link" href="../My-order/my-order.html">My order</a>
+              <a class="nav-link" href="../My-order/my-order.html">My Order<span class="badge badge-danger"></span>
+              </a>
             </li>
+            <!-- dynamic order -->
             <!-- dynamic navbar -->
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" id="user-profile"></a>
             </li>
             <div id="btn-navbar"></div>
@@ -65,12 +91,14 @@
       </nav>
     </header>
     <main>
+      <br>
       <div class="container">
         <!-- Page Content -->
         <!-- <div id="page-content-wrapper"> -->
         <!-- <div class="container-fluid"> -->
         <!-- card my profile -->
         <!-- <div class="box-card"> -->
+          <br>
         <hr class="featurette-divider" />
   
         <div class="row text-center">
@@ -123,7 +151,12 @@
             <!-- Grid column -->
             <div class="col-md-6 mt-md-0 mt-3">
               <!-- Content -->
-              <h5 class="text-uppercase">Tuur</h5>
+              <img
+              src="../../assets/images/tuur.svg"
+              style="max-width: 200px"
+              alt="Tuur"
+            />
+            <br />
               <p>Around the world in your hands.</p>
             </div>
             <!-- Grid column -->

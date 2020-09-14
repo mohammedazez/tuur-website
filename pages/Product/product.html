@@ -54,7 +54,9 @@
   <body>
     <!-- navbar -->
     <header>
-      <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+      <nav
+        class="navbar fixed-top navbar-expand-lg navbar-light bg-light montserrat"
+      >
         <a class="navbar-brand" href="../../index.html">
           <img
             src="../../assets/images/tuur.png"
@@ -84,9 +86,13 @@
                 >Destination <span class="sr-only">(current)</span></a
               >
             </li>
+            <!-- dynamic order -->
             <li class="nav-item">
-              <a class="nav-link" href="../My-order/my-order.html">My order</a>
+              <a class="nav-link" href="../My-order/my-order.html"
+                >My Order<span class="badge badge-danger"></span>
+              </a>
             </li>
+            <!-- dynamic order -->
             <!-- dynamic navbar -->
             <li class="nav-item">
               <a class="nav-link" id="user-profile"></a>
@@ -103,15 +109,37 @@
         <!-- jumbotron -->
         <div class="jumbotron jumbotron-fluid bg-cover">
           <div class="overlay"></div>
-          <div class="container text-light shadow-text text-right">
-            <h1 class="display-4">Experience best of both World</h1>
-            <p class="lead nunito">
+          <div
+            class="container text-light shadow-text text-right jumbotron-inner"
+          >
+            <h1 class="display-4 slideanim">Experience best of both World</h1>
+            <p class="lead nunito slideanim">
               From east to western hemisphere, with love.
             </p>
+            <div
+              action=""
+              class="search-bar slideanim"
+              autocomplete="off"
+              onsubmit=""
+            >
+              <input
+                id="search-input"
+                type="text"
+                name="search"
+                pattern=".*\S.*"
+                required
+                placeholder="Search hotels"
+                autocomplete="off"
+              />
+              <button class="search-btn" type="" onclick="searchHotel()">
+                <!-- <span>Search</span> -->
+              </button>
+            </div>
           </div>
         </div>
         <div class="main-content container">
           <hr class="featurette-divider" />
+          <!-- Hotel list -->
           <div class="container">
             <p class="display-4 text-center">Hotel</p>
             <div class="row display-data1"></div>
@@ -127,6 +155,7 @@
     </main>
 
     <!-- Footer -->
+    <br />
     <footer class="page-footer font-small blue pt-4">
       <!-- Footer Links -->
       <div class="container-fluid text-center text-md-left">
@@ -135,7 +164,12 @@
           <!-- Grid column -->
           <div class="col-md-6 mt-md-0 mt-3">
             <!-- Content -->
-            <h5 class="text-uppercase">Tuur</h5>
+            <img
+              src="../../assets/images/tuur.svg"
+              style="max-width: 200px"
+              alt="Tuur"
+            />
+            <br />
             <p>Around the world in your hands.</p>
           </div>
           <!-- Grid column -->

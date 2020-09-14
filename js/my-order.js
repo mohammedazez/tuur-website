@@ -53,7 +53,7 @@ let displayOrder = async () => {
         });
         let divCheckout = document.querySelector(".btn-checkout");
         let checkoutBtn = document.createElement("a");
-        checkoutBtn.setAttribute("href", "");
+        checkoutBtn.setAttribute("href", "../checkout/checkout.html");
         checkoutBtn.className = "btn btn-success";
         checkoutBtn.innerHTML = "Checkout";
         divCheckout.appendChild(checkoutBtn);
@@ -84,3 +84,27 @@ let funcDelete = (idUser, idProduct) => {
       location.reload();
     });
 };
+
+
+// badge order
+let badgeOrder = async () => {
+  try {
+    let user = JSON.parse(localStorage.getItem("user"));
+    if (user == null) {
+    } else {
+      let response = await fetch(
+        `https://5f52d4f27c47c30016e30a68.mockapi.io/tuur/Users/${user.id}/order/`
+      );
+      let data = await response.json();
+      console.log(data);
+      if (data < 1 || user === null) {
+      } else {
+        let badgeSpan = document.querySelector(".badge");
+        badgeSpan.innerHTML = `${data.length}`;
+      }
+    }
+  } catch {}
+};
+
+badgeOrder();
+// badge order

@@ -9,8 +9,8 @@ let btnDisplay = () => {
   let btnDisplay = document.querySelector("#btn-navbar");
   let getUserData = localStorage.getItem("user");
   let parsedUserData = JSON.parse(getUserData);
-  console.log("JSON", getUserData);
-  console.log("parsed", parsedUserData);
+  // console.log("JSON", getUserData);
+  // console.log("parsed", parsedUserData);
   if (getUserData !== null) {
     let userProfile = document.getElementById("user-profile");
     userProfile.setAttribute("href", "../My Profile/my-profile.html");
@@ -45,25 +45,34 @@ btnDisplay();
 let displayData = async () => {
   try {
     let url1 = "https://5f52d4f27c47c30016e30a68.mockapi.io/tuur/hotel";
-    let img1Src = "../../assets/images/hotel-bedroom.jpg";
+    let img1Src = [
+      "../../assets/images/hotel-bedroom.jpg",
+      "../../assets/images/hotel-2.jpg",
+      "../../assets/images/hotel-3.jpg",
+      "../../assets/images/hotel-2.jpg",
+      "../../assets/images/hotel-3.jpg",
+      "../../assets/images/hotel-bedroom.jpg",
+    ];
+    // let img2Src = "../../assets/images/hotel-2.jpg";
+    // let img3Src = "../../assets/images/hotel-3.jpg";
     let response1 = await fetch(url1);
     let data1 = await response1.json();
-    console.log(data1);
-    data1.forEach((element) => {
-      console.log(element);
-      console.log(element.hotel);
-      console.log(element.price);
+    // console.log(data1);
+    data1.forEach((element, index) => {
+      // console.log(element);
+      // console.log(element.hotel);
+      // console.log(element.price);
       let displayData1 = document.querySelector(".display-data1");
       // div col
       let div1 = document.createElement("div");
-      div1.className = "col-md-4 shadow";
+      div1.className = "col-md-4 shadow ";
       // div card
       let divCard1 = document.createElement("div");
       divCard1.className = "card slideanim";
       // img
       let img1 = document.createElement("img");
       img1.className = "card-img-top";
-      img1.setAttribute("src", `${img1Src}`);
+      img1.setAttribute("src", `${img1Src[index]}`);
       // div card body
       let card1Body = document.createElement("div");
       card1Body.className = "card-body";
@@ -96,6 +105,83 @@ let displayData = async () => {
 
 displayData();
 
+// search
+let searchHotel = async () => {
+  try {
+    let searchInput = document.getElementById("search-input");
+    let searchValue = searchInput.value;
+    // console.log("searchInput", searchInput);
+    console.log("searchValue", searchValue);
+    let url1 = "https://5f52d4f27c47c30016e30a68.mockapi.io/tuur/hotel";
+    let response1 = await fetch(url1);
+    let data1 = await response1.json();
+    console.log("data1", data1);
+    // filter search
+    let filterData = data1.filter((element) => element.hotel == searchValue);
+    console.log("filterData", filterData);
+    // empty data
+    let displayData1 = document.querySelector(".display-data1");
+    displayData1.innerHTML = "";
+
+    // show filter data
+    if (filterData < 1) {
+      let displayData1 = document.querySelector(".display-data1");
+      displayData1.innerHTML = `
+      <div class="container-fluid">
+      <br>
+      <div class="row">
+      <div class="col-12 text-center justify-content-center">
+      <p class="heading-3 text-center">Whoopsie! nothing found ¯\\_(ツ)_/¯</p>
+      </div>
+      </div>
+      <br>
+      </div>
+      <div class="row col-12 justify-content-center text-center">
+      <button class="btn btn-info text-center disp-all">Show all</button>
+      </div>
+      `;
+      let dispAllBtn = document.querySelector(".disp-all");
+      dispAllBtn.addEventListener("click", function () {
+        location.reload();
+      });
+    } else {
+      // console.log("filterdata",filterData);
+      filterData.forEach((element) => {
+        // console.log(element);
+        // console.log(element.hotel);
+        // console.log(element.price);
+        let displayData1 = document.querySelector(".display-data1");
+        displayData1.innerHTML = `
+        <div class="row">
+        <div class="col-md-4 shadow">
+        <img class="card-img-top" src="../../assets/images/hotel-bedroom.jpg">
+        <div class="card-body">
+        <h5 class="card-title">${element.hotel}</h5>
+        <p class="card-text">$ ${element.price}/night</p>
+        <button class="btn btn-success shadow-sm search-button">Book</button>
+        <br>
+        </div>
+        </div>
+        </div>
+        <div class="row col-12 justify-content-center text-center">
+        <br></br>
+        <button class="btn btn-info text-center disp-all mt-4">Show all</button>
+        </div>
+        `;
+        let button1 = document.querySelector(".search-button");
+        button1.addEventListener("click", function () {
+          funcBook(element.hotel, element.price);
+        });
+        let dispAllBtn = document.querySelector(".disp-all");
+        dispAllBtn.addEventListener("click", function () {
+          location.reload();
+        });
+      });
+    }
+    // let filterSearch
+  } catch {}
+};
+
 // book
 let funcBook = async (hotelName, price) => {
   try {
@@ -107,10 +193,10 @@ let funcBook = async (hotelName, price) => {
         button: "OK",
       });
     } else {
-      console.log("user", user.id);
+      // console.log("user", user.id);
       let userId = user.id;
-      console.log("hotel", hotelName);
-      console.log("price", price);
+      // console.log("hotel", hotelName);
+      // console.log("price", price);
 
       let postOption = {
         method: "POST",
@@ -128,98 +214,39 @@ let funcBook = async (hotelName, price) => {
         postOption
       );
       let result = await response.json();
-      console.log(result);
+      // console.log(result);
       swal({
         title: "Success!",
         text: `${hotelName} added!`,
         icon: "success",
         button: "Proceed",
-      });      
+      });
+      badgeOrder();
     }
   } catch {
     console.log("error");
   }
 };
 
-// let count;
-// let cartArray;
-// funcbook function
-// function funcBook(hotelName, price) {
-// count += 1;
-// let oldItems = localStorage.getItem("order");
-// console.log("oldItems", oldItems);
-// let parsedOldItems = JSON.parse(oldItems);
-// console.log("parsedOI", parsedOldItems);
-// let cartArray = [...parsedOldItems];
-// console.log("cartArrayluar", cartArray);
-// if (parsedOldItems == null) {
-//   let cartArray = [];
-//   let newItem = {
-//     hotelName: hotelName,
-//     price: price,
-//     orderId: count,
-//   };
-//   cartArray.push(newItem);
-//   console.log("cartArrayIf", cartArray);
-//   localStorage.setItem("order", JSON.stringify(cartArray));
-// } else {
-//   let newItem = {
-//     hotelName: hotelName,
-//     price: price,
-//     orderId: count,
-//   };
-//   console.log("arrayElseSblumPush",cartArray);
-//   cartArray.push(newItem);
-//   console.log("cartArrElse", cartArray);
-//   localStorage.setItem("order", JSON.stringify(cartArray));
-// }
+// badge order
+let badgeOrder = async () => {
+  try {
+    let user = JSON.parse(localStorage.getItem("user"));
+    if (user == null) {
+    } else {
+      let response = await fetch(
+        `https://5f52d4f27c47c30016e30a68.mockapi.io/tuur/Users/${user.id}/order/`
+      );
+      let data = await response.json();
+      console.log(data);
+      if (data < 1 || user === null) {
+      } else {
+        let badgeSpan = document.querySelector(".badge");
+        badgeSpan.innerHTML = `${data.length}`;
+      }
+    }
+  } catch {}
+};
 
-// oldItems = oldItems ? JSON.parse(oldItems) : {};
-
-// oldItems;
-
-// for (i = 1; i < oldItems.length; i++) {
-//   oldItems[i]["orderId "] = i;
-// }
-
-// console.log(oldItems);
-// let newItem = {
-//   "hotelName": hotelName,
-//   "price": price
-// };
-
-// oldItems.push(newItem);
-
-// localStorage.setItem("order", JSON.stringify(oldItems));
-
-// let orderData = JSON.stringify({
-//   orderId: i
-//   hotelName: hotelName,
-//   price: price,
-// });
-
-// localStorage.setItem(
-//   "order",
-//   JSON.stringify({
-//     hotelName: hotelName,
-//     price: price,
-//     orderId: i,
-//   })
-// );
-// }
-
-// let getLocation = async () => {
-//   let url = "https://5f52d4f27c47c30016e30a68.mockapi.io/tuur/Destination";
-//   try {
-//     let response = await fetch(url);
-//     let data = await response.json();
-//     console.log(data);
-//     data.forEach((element) => {
-//       console.log(element.location);
-//     });
-//   } catch {
-//     console.log("error");
-//   }
-// };
-
-// getLocation();
+badgeOrder();
+// badge order
